@@ -6,16 +6,14 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const require = createRequire(import.meta.url);
-const {
-  JulianDate,
-  ModifiedJulianDate,
-  Period,
-  julianCenturies,
-  julianYears,
-  jdToDate,
-} = require(join(dirname(fileURLToPath(import.meta.url)), '..', 'index.js'));
+const { JulianDate, ModifiedJulianDate, Period, julianCenturies, julianYears } = require(
+  join(dirname(fileURLToPath(import.meta.url)), '..', 'index.js'),
+);
 
-const line = (label = '') => console.log(label ? `─── ${label} ${'─'.repeat(Math.max(0, 52 - label.length))}` : '─'.repeat(56));
+const line = (label = '') =>
+  console.log(
+    label ? `─── ${label} ${'─'.repeat(Math.max(0, 52 - label.length))}` : '─'.repeat(56),
+  );
 
 // ─── The J2000.0 reference epoch ──────────────────────────────────────────
 line('J2000.0 epoch');
@@ -51,14 +49,14 @@ const observations = [
 console.log(`${'Date'.padEnd(26)} ${'T (centuries)'.padStart(15)}`);
 for (const d of observations) {
   const jd = JulianDate.fromDate(d);
-  const T  = jd.julianCenturies();
+  const T = jd.julianCenturies();
   console.log(`${d.toISOString().slice(0, 10).padEnd(26)} ${T.toFixed(6).padStart(15)}`);
 }
 
 // ─── Epoch arithmetic ─────────────────────────────────────────────────────
 line('Epoch arithmetic');
-const JULIAN_YEAR   = 365.25;     // days
-const JULIAN_CENTURY = 36_525.0;  // days
+const JULIAN_YEAR = 365.25; // days
+const JULIAN_CENTURY = 36_525.0; // days
 
 const jd2000 = JulianDate.j2000();
 const jd2100 = jd2000.addDays(JULIAN_CENTURY);
@@ -73,11 +71,11 @@ console.log(`T from J2000 : ${jd_minus5.julianCenturies().toFixed(6)}`);
 // ─── Observation window with T values ─────────────────────────────────────
 line('Observation window');
 const nightStart = new Date('2025-04-15T22:00:00Z');
-const nightEnd   = new Date('2025-04-16T04:00:00Z');
+const nightEnd = new Date('2025-04-16T04:00:00Z');
 const night = Period.fromDates(nightStart, nightEnd);
 
 const midMjd = (night.startMjd + night.endMjd) / 2;
-const midJd  = new ModifiedJulianDate(midMjd).toJd();
+const midJd = new ModifiedJulianDate(midMjd).toJd();
 
 console.log(`Start UTC  : ${nightStart.toISOString()}`);
 console.log(`End UTC    : ${nightEnd.toISOString()}`);

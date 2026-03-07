@@ -25,9 +25,9 @@ const {
 } = require(join(__dirname, '..', 'index.js'));
 
 // ── Constants ──────────────────────────────────────────────────────────────
-const J2000_JD  = 2_451_545.0;
+const J2000_JD = 2_451_545.0;
 const J2000_MJD = 51_544.5;
-const EPSILON   = 1e-9;     // relative tolerance for day-precision values
+const EPSILON = 1e-9; // relative tolerance for day-precision values
 
 // ═══════════════════════════════════════════════════════════════════════════
 // JulianDate
@@ -73,14 +73,14 @@ describe('JulianDate', () => {
     it('round-trips a well-known UTC date', () => {
       // J2000 UTC is ~11:58:56Z due to ΔT; create a date from that back-converted ts
       const jd0 = JulianDate.j2000();
-      const d   = jd0.toDate();
+      const d = jd0.toDate();
       const jdRT = JulianDate.fromDate(d);
       assert.ok(Math.abs(jdRT.value - J2000_JD) < 1e-6);
     });
 
     it('preserves millisecond precision on round-trip', () => {
       const now = new Date(Date.UTC(2025, 5, 15, 10, 30, 45, 500));
-      const jd  = JulianDate.fromDate(now);
+      const jd = JulianDate.fromDate(now);
       const back = jd.toDate();
       assert.ok(Math.abs(back.getTime() - now.getTime()) < 2); // ≤2 ms
     });
@@ -89,7 +89,7 @@ describe('JulianDate', () => {
   describe('fromUtc()', () => {
     it('matches fromDate for the same UTC instant', () => {
       // 2025-06-15 10:30:00 UTC
-      const d   = new Date(Date.UTC(2025, 5, 15, 10, 30, 0));
+      const d = new Date(Date.UTC(2025, 5, 15, 10, 30, 0));
       const jd1 = JulianDate.fromDate(d);
       const jd2 = JulianDate.fromUtc(2025, 6, 15, 10, 30, 0);
       assert.ok(Math.abs(jd1.value - jd2.value) < 1e-10);
@@ -131,7 +131,7 @@ describe('JulianDate', () => {
     it('J2000.0 UTC is approximately 2000-01-01T11:58:56Z (ΔT ≈ 63.8 s)', () => {
       const d = JulianDate.j2000().toDate();
       assert.equal(d.getUTCFullYear(), 2000);
-      assert.equal(d.getUTCMonth(), 0);  // January
+      assert.equal(d.getUTCMonth(), 0); // January
       assert.equal(d.getUTCDate(), 1);
       assert.equal(d.getUTCHours(), 11);
       // ΔT puts the minute at 58 (63+ seconds before noon TT)
@@ -177,7 +177,7 @@ describe('JulianDate', () => {
     it('returns a new JulianDate (immutable)', () => {
       const jd = new JulianDate(J2000_JD);
       const jd2 = jd.addDays(10);
-      assert.equal(jd.value, J2000_JD);        // original unchanged
+      assert.equal(jd.value, J2000_JD); // original unchanged
       assert.equal(jd2.value, J2000_JD + 10);
     });
 
@@ -322,7 +322,7 @@ describe('Period', () => {
   describe('fromDates()', () => {
     it('creates a period from two JS Dates', () => {
       const start = new Date(Date.UTC(2020, 0, 1));
-      const end   = new Date(Date.UTC(2021, 0, 1));
+      const end = new Date(Date.UTC(2021, 0, 1));
       const p = Period.fromDates(start, end);
       // The MJD-based duration may differ from the calendar duration by a small
       // ΔT correction (~0.1 s/yr). Verify against the free-function equivalent.
@@ -334,7 +334,7 @@ describe('Period', () => {
 
     it('throws when start > end', () => {
       const start = new Date(Date.UTC(2021, 0, 1));
-      const end   = new Date(Date.UTC(2020, 0, 1));
+      const end = new Date(Date.UTC(2020, 0, 1));
       assert.throws(() => Period.fromDates(start, end), /start.*end|end.*start/i);
     });
   });
@@ -384,16 +384,16 @@ describe('Period', () => {
 
   describe('intersection()', () => {
     it('returns overlapping sub-period', () => {
-      const a = new Period(J2000_MJD,       J2000_MJD + 2);
-      const b = new Period(J2000_MJD + 1,   J2000_MJD + 3);
+      const a = new Period(J2000_MJD, J2000_MJD + 2);
+      const b = new Period(J2000_MJD + 1, J2000_MJD + 3);
       const i = a.intersection(b);
       assert.notEqual(i, null);
       assert.ok(Math.abs(i.startMjd - (J2000_MJD + 1)) < EPSILON);
-      assert.ok(Math.abs(i.endMjd   - (J2000_MJD + 2)) < EPSILON);
+      assert.ok(Math.abs(i.endMjd - (J2000_MJD + 2)) < EPSILON);
     });
 
     it('returns null for non-overlapping periods', () => {
-      const a = new Period(J2000_MJD,     J2000_MJD + 1);
+      const a = new Period(J2000_MJD, J2000_MJD + 1);
       const b = new Period(J2000_MJD + 2, J2000_MJD + 3);
       assert.equal(a.intersection(b), null);
     });
@@ -491,7 +491,7 @@ describe('jdFromDate() / mjdFromDate()', () => {
   });
 
   it('mjdFromDate returns expected MJD for a known date', () => {
-    const d   = new Date(Date.UTC(2025, 0, 1, 0, 0, 0));
+    const d = new Date(Date.UTC(2025, 0, 1, 0, 0, 0));
     const mjd = mjdFromDate(d);
     // J2025.0 is approx MJD 60676 (rough check)
     assert.ok(mjd > 60_000 && mjd < 70_000);
@@ -554,16 +554,16 @@ describe('version()', () => {
 
 describe('End-to-end workflows', () => {
   it('JD → MJD → Date → MJD round-trip preserves value', () => {
-    const jd   = new JulianDate(J2000_JD + 100);
-    const mjd  = jd.toMjd();
-    const d    = mjd.toDate();
+    const jd = new JulianDate(J2000_JD + 100);
+    const mjd = jd.toMjd();
+    const d = mjd.toDate();
     const mjd2 = ModifiedJulianDate.fromDate(d);
     assert.ok(Math.abs(mjd2.value - mjd.value) < 1e-6);
   });
 
   it('Period built from JD difference is consistent', () => {
     const start = new JulianDate(J2000_JD).toMjd().value;
-    const end   = new JulianDate(J2000_JD + 365.25).toMjd().value;
+    const end = new JulianDate(J2000_JD + 365.25).toMjd().value;
     const p = new Period(start, end);
     assert.ok(Math.abs(p.durationDays() - 365.25) < 1e-6);
   });
@@ -576,11 +576,11 @@ describe('End-to-end workflows', () => {
   it('Period.fromDates ↔ startMjd/endMjd agreement', () => {
     const d1 = new Date(Date.UTC(2020, 0, 1));
     const d2 = new Date(Date.UTC(2020, 6, 1));
-    const p  = Period.fromDates(d1, d2);
+    const p = Period.fromDates(d1, d2);
     // Reconstruct via free functions
     const startExpected = mjdFromDate(d1);
-    const endExpected   = mjdFromDate(d2);
+    const endExpected = mjdFromDate(d2);
     assert.ok(Math.abs(p.startMjd - startExpected) < 1e-9);
-    assert.ok(Math.abs(p.endMjd   - endExpected)   < 1e-9);
+    assert.ok(Math.abs(p.endMjd - endExpected) < 1e-9);
   });
 });

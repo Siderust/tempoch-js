@@ -13,10 +13,12 @@ const {
   jdFromDate,
   mjdFromDate,
   jdToDate,
-  mjdToDate,
 } = require(join(dirname(fileURLToPath(import.meta.url)), '..', 'index.js'));
 
-const line = (label = '') => console.log(label ? `─── ${label} ${'─'.repeat(Math.max(0, 52 - label.length))}` : '─'.repeat(56));
+const line = (label = '') =>
+  console.log(
+    label ? `─── ${label} ${'─'.repeat(Math.max(0, 52 - label.length))}` : '─'.repeat(56),
+  );
 
 // ─── Construction ─────────────────────────────────────────────────────────
 line('Construction');
