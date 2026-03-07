@@ -1,0 +1,44 @@
+{
+  "name": "@siderust/tempoch",
+  "version": "0.1.0",
+  "description": "Astronomical time primitives for Node.js — Julian Dates, Modified Julian Dates, UTC conversions, and period operations. Powered by Rust.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "napi build --release --platform",
+    "build:debug": "napi build --platform",
+    "test": "node --test __test__/*.test.mjs",
+    "prepublishOnly": "napi build --release --platform"
+  },
+  "napi": {
+    "name": "tempoch",
+    "triples": {
+      "defaults": true
+    }
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "examples/",
+    "README.md"
+  ],
+  "keywords": [
+    "astronomy",
+    "time",
+    "julian-date",
+    "mjd",
+    "ephemeris",
+    "science",
+    "napi",
+    "rust",
+    "native"
+  ],
+  "license": "AGPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Siderust/tempoch"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^2.18.4"
+  }
+}

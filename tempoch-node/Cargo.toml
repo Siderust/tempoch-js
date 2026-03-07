@@ -1,0 +1,26 @@
+[package]
+name = "tempoch-node"
+version = "0.1.0"
+edition = "2021"
+authors = ["VPRamon <vallespuigramon@gmail.com>"]
+license = "AGPL-3.0"
+repository = "https://github.com/Siderust/tempoch"
+description = "Node.js native bindings for tempoch astronomical time primitives"
+readme = "README.md"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+tempoch = { path = "../../../../siderust/rust/tempoch/tempoch", version = "0.3.0" }
+qtty = "0.3.1"
+chrono = "0.4"
+napi = { version = "2", features = ["napi6"] }
+napi-derive = "2"
+
+[build-dependencies]
+napi-build = "2"
+
+[profile.release]
+lto = true
+strip = "symbols"
