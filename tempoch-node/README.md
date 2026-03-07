@@ -23,12 +23,12 @@ const { JulianDate, ModifiedJulianDate, Period } = require('@siderust/tempoch');
 
 // Construct from raw value
 const jd = new JulianDate(2_451_545.0);
-console.log(jd.value);              // 2451545
-console.log(jd.julianCenturies());  // 0  (J2000.0)
+console.log(jd.value); // 2451545
+console.log(jd.julianCenturies()); // 0  (J2000.0)
 
 // Construct from a JavaScript Date
 const jd2 = JulianDate.fromDate(new Date('2025-06-21T00:00:00Z'));
-console.log(jd2.toMjd().value.toFixed(2));  // ~61027.50
+console.log(jd2.toMjd().value.toFixed(2)); // ~61027.50
 
 // Round-trip to UTC
 const back = jd2.toDate();
@@ -36,8 +36,8 @@ console.log(back.toISOString());
 
 // Free conversion functions
 const { jdToMjd, julianCenturies } = require('@siderust/tempoch');
-console.log(jdToMjd(2_451_545.0));   // 51544.5
-console.log(julianCenturies(2_451_545.0));  // 0
+console.log(jdToMjd(2_451_545.0)); // 51544.5
+console.log(julianCenturies(2_451_545.0)); // 0
 ```
 
 ```ts
@@ -51,7 +51,7 @@ import {
 } from '@siderust/tempoch';
 
 const jd: JulianDate = JulianDate.j2000();
-const t: number = jd.julianCenturies();  // 0
+const t: number = jd.julianCenturies(); // 0
 ```
 
 ---
@@ -71,64 +71,64 @@ To build from source, see [Building from source](#building-from-source).
 
 ### `JulianDate`
 
-Continuous day count since the Julian Period origin.  J2000.0 = **JD 2 451 545.0**.
+Continuous day count since the Julian Period origin. J2000.0 = **JD 2 451 545.0**.
 
 #### Constructors / factories
 
-| Method | Description |
-|--------|-------------|
-| `new JulianDate(value)` | From raw `f64` days. Throws on `NaN`/`±Infinity`. |
-| `JulianDate.fromDate(date)` | From a JS `Date`. Applies ΔT correction automatically. |
-| `JulianDate.fromUtc(y, mo, d, h, mi, s)` | From explicit UTC components. `s` may be fractional. |
-| `JulianDate.j2000()` | Returns the J2000.0 epoch (JD 2 451 545.0). |
+| Method                                   | Description                                            |
+| ---------------------------------------- | ------------------------------------------------------ |
+| `new JulianDate(value)`                  | From raw `f64` days. Throws on `NaN`/`±Infinity`.      |
+| `JulianDate.fromDate(date)`              | From a JS `Date`. Applies ΔT correction automatically. |
+| `JulianDate.fromUtc(y, mo, d, h, mi, s)` | From explicit UTC components. `s` may be fractional.   |
+| `JulianDate.j2000()`                     | Returns the J2000.0 epoch (JD 2 451 545.0).            |
 
 #### Accessors / conversions
 
-| Member | Type | Description |
-|--------|------|-------------|
-| `.value` | `number` | Raw JD scalar. |
-| `.toMjd()` | `ModifiedJulianDate` | Converts to MJD (`JD − 2 400 000.5`). |
-| `.toDate()` | `Date` | Converts to JS `Date` (UTC). Throws if out of range. |
-| `.julianCenturies()` | `number` | T = (JD − 2 451 545.0) / 36 525. |
-| `.julianYears()` | `number` | (JD − 2 451 545.0) / 365.25. |
-| `.format()` | `string` | Human-readable string. |
+| Member               | Type                 | Description                                          |
+| -------------------- | -------------------- | ---------------------------------------------------- |
+| `.value`             | `number`             | Raw JD scalar.                                       |
+| `.toMjd()`           | `ModifiedJulianDate` | Converts to MJD (`JD − 2 400 000.5`).                |
+| `.toDate()`          | `Date`               | Converts to JS `Date` (UTC). Throws if out of range. |
+| `.julianCenturies()` | `number`             | T = (JD − 2 451 545.0) / 36 525.                     |
+| `.julianYears()`     | `number`             | (JD − 2 451 545.0) / 365.25.                         |
+| `.format()`          | `string`             | Human-readable string.                               |
 
 #### Arithmetic
 
-| Method | Description |
-|--------|-------------|
-| `.addDays(days)` | Returns a new `JulianDate` shifted by `days` (can be negative). Throws on `NaN`. |
-| `.difference(other)` | Returns `this − other` in days. |
+| Method               | Description                                                                      |
+| -------------------- | -------------------------------------------------------------------------------- |
+| `.addDays(days)`     | Returns a new `JulianDate` shifted by `days` (can be negative). Throws on `NaN`. |
+| `.difference(other)` | Returns `this − other` in days.                                                  |
 
 ---
 
 ### `ModifiedJulianDate`
 
-`MJD = JD − 2 400 000.5`.  MJD epoch: 1858-11-17T00:00:00 UTC.  J2000.0 = **MJD 51 544.5**.
+`MJD = JD − 2 400 000.5`. MJD epoch: 1858-11-17T00:00:00 UTC. J2000.0 = **MJD 51 544.5**.
 
 #### Constructors / factories
 
-| Method | Description |
-|--------|-------------|
-| `new ModifiedJulianDate(value)` | From raw `f64` days. Throws on `NaN`/`±Infinity`. |
-| `ModifiedJulianDate.fromDate(date)` | From a JS `Date`. |
-| `ModifiedJulianDate.fromUtc(y, mo, d, h, mi, s)` | From explicit UTC components. |
+| Method                                           | Description                                       |
+| ------------------------------------------------ | ------------------------------------------------- |
+| `new ModifiedJulianDate(value)`                  | From raw `f64` days. Throws on `NaN`/`±Infinity`. |
+| `ModifiedJulianDate.fromDate(date)`              | From a JS `Date`.                                 |
+| `ModifiedJulianDate.fromUtc(y, mo, d, h, mi, s)` | From explicit UTC components.                     |
 
 #### Accessors / conversions
 
-| Member | Type | Description |
-|--------|------|-------------|
-| `.value` | `number` | Raw MJD scalar. |
-| `.toJd()` | `JulianDate` | Converts to JD. |
-| `.toDate()` | `Date` | Converts to JS `Date` (UTC). Throws if out of range. |
-| `.format()` | `string` | Human-readable string. |
+| Member      | Type         | Description                                          |
+| ----------- | ------------ | ---------------------------------------------------- |
+| `.value`    | `number`     | Raw MJD scalar.                                      |
+| `.toJd()`   | `JulianDate` | Converts to JD.                                      |
+| `.toDate()` | `Date`       | Converts to JS `Date` (UTC). Throws if out of range. |
+| `.format()` | `string`     | Human-readable string.                               |
 
 #### Arithmetic
 
-| Method | Description |
-|--------|-------------|
-| `.addDays(days)` | Returns a new `ModifiedJulianDate` shifted by `days`. |
-| `.difference(other)` | Returns `this − other` in days. |
+| Method               | Description                                           |
+| -------------------- | ----------------------------------------------------- |
+| `.addDays(days)`     | Returns a new `ModifiedJulianDate` shifted by `days`. |
+| `.difference(other)` | Returns `this − other` in days.                       |
 
 ---
 
@@ -138,47 +138,47 @@ A half-open time interval `[start, end)` over MJD.
 
 #### Constructors / factories
 
-| Method | Description |
-|--------|-------------|
+| Method                         | Description                                                     |
+| ------------------------------ | --------------------------------------------------------------- |
 | `new Period(startMjd, endMjd)` | From two raw MJD values. Throws if `start > end` or non-finite. |
-| `Period.fromDates(start, end)` | From two JS `Date` objects. Throws if `start > end`. |
+| `Period.fromDates(start, end)` | From two JS `Date` objects. Throws if `start > end`.            |
 
 #### Accessors
 
-| Member | Type | Description |
-|--------|------|-------------|
-| `.startMjd` | `number` | Start raw MJD value. |
-| `.endMjd` | `number` | End raw MJD value. |
-| `.start` | `ModifiedJulianDate` | Start as a `ModifiedJulianDate` object. |
-| `.end` | `ModifiedJulianDate` | End as a `ModifiedJulianDate` object. |
+| Member      | Type                 | Description                             |
+| ----------- | -------------------- | --------------------------------------- |
+| `.startMjd` | `number`             | Start raw MJD value.                    |
+| `.endMjd`   | `number`             | End raw MJD value.                      |
+| `.start`    | `ModifiedJulianDate` | Start as a `ModifiedJulianDate` object. |
+| `.end`      | `ModifiedJulianDate` | End as a `ModifiedJulianDate` object.   |
 
 #### Methods
 
-| Method | Return | Description |
-|--------|--------|-------------|
-| `.durationDays()` | `number` | Duration in days. |
-| `.contains(mjd)` | `boolean` | `true` if `start ≤ mjd < end`. |
-| `.intersection(other)` | `Period \| null` | Overlapping sub-period, or `null` if disjoint. |
-| `.toUtc()` | `{ startMs: number, endMs: number }` | Endpoints as ms-since-epoch timestamps. Throws if out of range. |
-| `.format()` | `string` | Human-readable string. |
+| Method                 | Return                               | Description                                                     |
+| ---------------------- | ------------------------------------ | --------------------------------------------------------------- |
+| `.durationDays()`      | `number`                             | Duration in days.                                               |
+| `.contains(mjd)`       | `boolean`                            | `true` if `start ≤ mjd < end`.                                  |
+| `.intersection(other)` | `Period \| null`                     | Overlapping sub-period, or `null` if disjoint.                  |
+| `.toUtc()`             | `{ startMs: number, endMs: number }` | Endpoints as ms-since-epoch timestamps. Throws if out of range. |
+| `.format()`            | `string`                             | Human-readable string.                                          |
 
 ---
 
 ### Free functions
 
-| Function | Returns | Description |
-|----------|---------|-------------|
-| `jdToMjd(jd)` | `number` | `jd − 2 400 000.5` |
-| `mjdToJd(mjd)` | `number` | `mjd + 2 400 000.5` |
-| `julianCenturies(jd)` | `number` | T = (jd − J2000) / 36 525 |
-| `julianYears(jd)` | `number` | (jd − J2000) / 365.25 |
-| `jdFromDate(date)` | `number` | JS `Date` → JD scalar |
-| `mjdFromDate(date)` | `number` | JS `Date` → MJD scalar |
-| `jdToDate(jd)` | `Date` | JD scalar → JS `Date` |
-| `mjdToDate(mjd)` | `Date` | MJD scalar → JS `Date` |
-| `jdDifference(jd1, jd2)` | `number` | `jd1 − jd2` in days |
-| `mjdDifference(mjd1, mjd2)` | `number` | `mjd1 − mjd2` in days |
-| `version()` | `string` | Package version string |
+| Function                    | Returns  | Description               |
+| --------------------------- | -------- | ------------------------- |
+| `jdToMjd(jd)`               | `number` | `jd − 2 400 000.5`        |
+| `mjdToJd(mjd)`              | `number` | `mjd + 2 400 000.5`       |
+| `julianCenturies(jd)`       | `number` | T = (jd − J2000) / 36 525 |
+| `julianYears(jd)`           | `number` | (jd − J2000) / 365.25     |
+| `jdFromDate(date)`          | `number` | JS `Date` → JD scalar     |
+| `mjdFromDate(date)`         | `number` | JS `Date` → MJD scalar    |
+| `jdToDate(jd)`              | `Date`   | JD scalar → JS `Date`     |
+| `mjdToDate(mjd)`            | `Date`   | MJD scalar → JS `Date`    |
+| `jdDifference(jd1, jd2)`    | `number` | `jd1 − jd2` in days       |
+| `mjdDifference(mjd1, mjd2)` | `number` | `mjd1 − mjd2` in days     |
+| `version()`                 | `string` | Package version string    |
 
 ---
 
@@ -205,11 +205,11 @@ For J2000.0 (JD 2 451 545.0, TT noon), the UTC equivalent is approximately
 
 ## Examples
 
-| File | Description |
-|------|-------------|
-| [examples/quickstart.mjs](examples/quickstart.mjs) | Construction, conversions, arithmetic |
-| [examples/periods.mjs](examples/periods.mjs) | Period construction, containment, intersection |
-| [examples/timescales.mjs](examples/timescales.mjs) | J2000 epoch, centuries, observation windows |
+| File                                               | Description                                    |
+| -------------------------------------------------- | ---------------------------------------------- |
+| [examples/quickstart.mjs](examples/quickstart.mjs) | Construction, conversions, arithmetic          |
+| [examples/periods.mjs](examples/periods.mjs)       | Period construction, containment, intersection |
+| [examples/timescales.mjs](examples/timescales.mjs) | J2000 epoch, centuries, observation windows    |
 
 Run any example directly:
 
@@ -253,7 +253,7 @@ tempoch-core  (Time<S>, Period, ΔT model, scale markers)
 ```
 
 The native addon is a `cdylib` Rust crate that depends on `tempoch` and
-`tempoch-core`.  No C FFI layer is involved — napi-rs generates the V8 bridge
+`tempoch-core`. No C FFI layer is involved — napi-rs generates the V8 bridge
 directly without going through `tempoch-ffi`.
 
 ---

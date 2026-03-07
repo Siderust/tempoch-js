@@ -1,0 +1,5 @@
+coverage
+node_modules
+target
+*.node
+index.js
