@@ -2,4 +2,5 @@ coverage
 node_modules
 target
 *.node
+index.d.ts
 index.js
