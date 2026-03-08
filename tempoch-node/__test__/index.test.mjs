@@ -142,23 +142,31 @@ describe('JulianDate', () => {
   // ── epoch quantities ─────────────────────────────────────────────────
   describe('julianCenturies()', () => {
     it('is exactly 0 for J2000.0', () => {
-      assert.equal(JulianDate.j2000().julianCenturies(), 0);
+      const q = JulianDate.j2000().julianCenturies();
+      assert.equal(q.value, 0);
+      assert.equal(q.unit, 'JulianCentury');
     });
 
     it('is 1.0 for J2100.0 (JD + 36525)', () => {
       const jd2100 = new JulianDate(J2000_JD + 36_525.0);
-      assert.ok(Math.abs(jd2100.julianCenturies() - 1.0) < 1e-12);
+      const q = jd2100.julianCenturies();
+      assert.ok(Math.abs(q.value - 1.0) < 1e-12);
+      assert.equal(q.unit, 'JulianCentury');
     });
   });
 
   describe('julianYears()', () => {
     it('is 0 for J2000.0', () => {
-      assert.equal(JulianDate.j2000().julianYears(), 0);
+      const q = JulianDate.j2000().julianYears();
+      assert.equal(q.value, 0);
+      assert.equal(q.unit, 'JulianYear');
     });
 
     it('is 1 for J2001.0 (JD + 365.25)', () => {
       const jd2001 = new JulianDate(J2000_JD + 365.25);
-      assert.ok(Math.abs(jd2001.julianYears() - 1.0) < 1e-12);
+      const q = jd2001.julianYears();
+      assert.ok(Math.abs(q.value - 1.0) < 1e-12);
+      assert.equal(q.unit, 'JulianYear');
     });
   });
 
@@ -189,19 +197,21 @@ describe('JulianDate', () => {
   describe('difference()', () => {
     it('self − self is 0', () => {
       const jd = new JulianDate(J2000_JD);
-      assert.equal(jd.difference(jd), 0);
+      const d = jd.difference(jd);
+      assert.equal(d.value, 0);
+      assert.equal(d.unit, 'Day');
     });
 
     it('later − earlier is positive', () => {
       const jd1 = new JulianDate(J2000_JD + 10);
       const jd2 = new JulianDate(J2000_JD);
-      assert.ok(Math.abs(jd1.difference(jd2) - 10) < EPSILON);
+      assert.ok(Math.abs(jd1.difference(jd2).value - 10) < EPSILON);
     });
 
     it('earlier − later is negative', () => {
       const jd1 = new JulianDate(J2000_JD);
       const jd2 = new JulianDate(J2000_JD + 10);
-      assert.ok(Math.abs(jd1.difference(jd2) + 10) < EPSILON);
+      assert.ok(Math.abs(jd1.difference(jd2).value + 10) < EPSILON);
     });
   });
 
@@ -280,7 +290,9 @@ describe('ModifiedJulianDate', () => {
     it('1 day apart gives 1', () => {
       const a = new ModifiedJulianDate(J2000_MJD + 1);
       const b = new ModifiedJulianDate(J2000_MJD);
-      assert.ok(Math.abs(a.difference(b) - 1) < EPSILON);
+      const d = a.difference(b);
+      assert.ok(Math.abs(d.value - 1) < EPSILON);
+      assert.equal(d.unit, 'Day');
     });
   });
 
@@ -570,7 +582,7 @@ describe('End-to-end workflows', () => {
 
   it('adding 36525 days to J2000 gives J2100', () => {
     const jd2100 = new JulianDate(J2000_JD).addDays(36_525);
-    assert.ok(Math.abs(jd2100.julianCenturies() - 1.0) < 1e-10);
+    assert.ok(Math.abs(jd2100.julianCenturies().value - 1.0) < 1e-10);
   });
 
   it('Period.fromDates ↔ startMjd/endMjd agreement', () => {

@@ -1,0 +1,46 @@
+{
+  "name": "@siderust/tempoch-web",
+  "version": "0.1.0",
+  "description": "Astronomical time primitives for the browser — powered by Rust + WebAssembly",
+  "type": "module",
+  "module": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    }
+  },
+  "scripts": {
+    "build": "wasm-pack build --target web --out-dir pkg --release --scope siderust",
+    "build:dev": "wasm-pack build --target web --out-dir pkg --dev --scope siderust",
+    "clean": "rm -rf pkg/"
+  },
+  "files": [
+    "pkg/tempoch_web_bg.wasm",
+    "pkg/tempoch_web.js",
+    "pkg/tempoch_web.d.ts",
+    "lib/",
+    "index.js",
+    "index.d.ts",
+    "README.md"
+  ],
+  "dependencies": {
+    "@siderust/qtty-web": "^0.1.0"
+  },
+  "keywords": [
+    "tempoch",
+    "juliandate",
+    "astronomy",
+    "time",
+    "wasm",
+    "webassembly",
+    "browser",
+    "rust"
+  ],
+  "license": "AGPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Siderust/tempoch"
+  }
+}

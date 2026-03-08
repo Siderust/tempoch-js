@@ -24,6 +24,8 @@
   "files": [
     "index.js",
     "index.d.ts",
+    "native.cjs",
+    "lib/",
     "examples/",
     "README.md"
   ],
@@ -42,6 +44,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Siderust/tempoch"
+  },
+  "dependencies": {
+    "@siderust/qtty": "^0.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
