@@ -44,7 +44,14 @@ class ModifiedJulianDate {
    * @returns {ModifiedJulianDate}
    */
   static fromUtc(year, month, day, hour, minute, second) {
-    const nativeMjd = backend.NativeModifiedJulianDate.fromUtc(year, month, day, hour, minute, second);
+    const nativeMjd = backend.NativeModifiedJulianDate.fromUtc(
+      year,
+      month,
+      day,
+      hour,
+      minute,
+      second,
+    );
     return new ModifiedJulianDate(nativeMjd.value);
   }
 

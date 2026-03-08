@@ -1,6 +1,6 @@
 {
   "name": "@siderust/tempoch-web",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Astronomical time primitives for the browser — powered by Rust + WebAssembly",
   "type": "module",
   "module": "index.js",
@@ -26,7 +26,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@siderust/qtty-web": "^1.0.0"
+    "@siderust/qtty-web": "^0.1.0"
   },
   "keywords": [
     "tempoch",

@@ -1,6 +1,6 @@
 {
   "name": "@siderust/tempoch",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Astronomical time primitives for Node.js — Julian Dates, Modified Julian Dates, UTC conversions, and period operations. Powered by Rust.",
   "main": "index.js",
   "types": "index.d.ts",
@@ -46,7 +46,7 @@
     "url": "https://github.com/Siderust/tempoch"
   },
   "dependencies": {
-    "@siderust/qtty": "^1.0.0"
+    "@siderust/qtty": "^0.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
