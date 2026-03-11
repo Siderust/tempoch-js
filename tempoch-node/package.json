@@ -46,7 +46,7 @@
     "url": "https://github.com/Siderust/tempoch"
   },
   "dependencies": {
-    "@qtty-js": "^0.1.0"
+    "qtty-js": "^0.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
