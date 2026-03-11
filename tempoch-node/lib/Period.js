@@ -9,7 +9,7 @@
 
 'use strict';
 
-const { Quantity } = require('@siderust/qtty');
+const { Quantity } = require('./qttyCompat.js');
 const { ModifiedJulianDate } = require('./ModifiedJulianDate.js');
 const backend = require('./backend.js');
 

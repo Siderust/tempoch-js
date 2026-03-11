@@ -9,7 +9,7 @@
 
 'use strict';
 
-const { Quantity } = require('@siderust/qtty');
+const { Quantity, convert, quantityDimension } = require('./qttyCompat.js');
 const backend = require('./backend.js');
 
 class JulianDate {
@@ -164,11 +164,10 @@ function _toDays(d) {
     return d;
   }
   if (d && typeof d.value === 'number' && typeof d.unit === 'string') {
-    // Convert Quantity to Day
-    if (d.dimension !== 'Time') {
-      throw new Error(`Expected a time Quantity, got ${d.dimension}`);
+    const dimension = quantityDimension(d);
+    if (dimension !== 'Time') {
+      throw new Error(`Expected a time Quantity, got ${dimension}`);
     }
-    const { convert } = require('@siderust/qtty');
     return convert(d.value, d.unit, 'Day');
   }
   throw new Error('Expected a Quantity or number');

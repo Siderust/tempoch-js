@@ -45,9 +45,6 @@
     "type": "git",
     "url": "https://github.com/Siderust/tempoch"
   },
-  "dependencies": {
-    "@siderust/qtty": "npm:qtty-js@^0.1.0"
-  },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@napi-rs/cli": "^3.5.1",

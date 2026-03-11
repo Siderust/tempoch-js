@@ -1,7 +1,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Quantity } from '@siderust/qtty'
+export interface QuantityLike {
+  value: number
+  unit: string
+  dimension?: string
+}
 
 /**
  * UTC bounds of a [`Period`] expressed as millisecond timestamps.
@@ -102,8 +106,8 @@ export declare class JulianDate {
   static j2000(): JulianDate
   /** Raw Julian Date value (days since the Julian Period origin). */
   get value(): number
-  /** The JD value as a `Quantity` in Days. */
-  get days(): Quantity
+  /** The JD value as a quantity-like object in Days. */
+  get days(): QuantityLike
   /** Convert to a `ModifiedJulianDate` (`JD − 2 400 000.5`). */
   toMjd(): ModifiedJulianDate
   /**
@@ -114,32 +118,32 @@ export declare class JulianDate {
    */
   toDate(): Date
   /**
-   * Julian centuries since J2000.0 (T) as a `Quantity`.
+   * Julian centuries since J2000.0 (T) as a quantity-like object.
    *
    * Used extensively by precession, nutation, and sidereal-time formulae.
    */
-  julianCenturies(): Quantity
-  /** Julian years since J2000.0 as a `Quantity`. */
-  julianYears(): Quantity
+  julianCenturies(): QuantityLike
+  /** Julian years since J2000.0 as a quantity-like object. */
+  julianYears(): QuantityLike
   /**
    * Add a time duration, returning a new `JulianDate`.
    *
-   * Accepts a `Quantity` (any time unit) or a raw number (days).
+   * Accepts a quantity-like object (any supported time unit) or a raw number (days).
    */
-  add(duration: Quantity | number): JulianDate
+  add(duration: QuantityLike | number): JulianDate
   /**
    * Subtract a time duration, returning a new `JulianDate`.
    *
-   * Accepts a `Quantity` (any time unit) or a raw number (days).
+   * Accepts a quantity-like object (any supported time unit) or a raw number (days).
    */
-  sub(duration: Quantity | number): JulianDate
+  sub(duration: QuantityLike | number): JulianDate
   /**
    * Add a duration in days, returning a new `JulianDate`.
    * @deprecated Use `add()` instead.
    */
   addDays(days: number): JulianDate
-  /** Signed difference `self − other` as a `Quantity` in Days. */
-  difference(other: JulianDate): Quantity
+  /** Signed difference `self − other` as a quantity-like object in Days. */
+  difference(other: JulianDate): QuantityLike
   /** Human-readable representation (e.g. `"Julian Day: 2451545 d"`). */
   format(): string
 }
@@ -174,8 +178,8 @@ export declare class ModifiedJulianDate {
   static fromUtc(year: number, month: number, day: number, hour: number, minute: number, second: number): ModifiedJulianDate
   /** Raw MJD value. */
   get value(): number
-  /** The MJD value as a `Quantity` in Days. */
-  get days(): Quantity
+  /** The MJD value as a quantity-like object in Days. */
+  get days(): QuantityLike
   /** Convert to a `JulianDate`. */
   toJd(): JulianDate
   /**
@@ -187,22 +191,22 @@ export declare class ModifiedJulianDate {
   /**
    * Add a time duration, returning a new `ModifiedJulianDate`.
    *
-   * Accepts a `Quantity` (any time unit) or a raw number (days).
+   * Accepts a quantity-like object (any supported time unit) or a raw number (days).
    */
-  add(duration: Quantity | number): ModifiedJulianDate
+  add(duration: QuantityLike | number): ModifiedJulianDate
   /**
    * Subtract a time duration, returning a new `ModifiedJulianDate`.
    *
-   * Accepts a `Quantity` (any time unit) or a raw number (days).
+   * Accepts a quantity-like object (any supported time unit) or a raw number (days).
    */
-  sub(duration: Quantity | number): ModifiedJulianDate
+  sub(duration: QuantityLike | number): ModifiedJulianDate
   /**
    * Add a duration in days, returning a new `ModifiedJulianDate`.
    * @deprecated Use `add()` instead.
    */
   addDays(days: number): ModifiedJulianDate
-  /** Signed difference `self − other` as a `Quantity` in Days. */
-  difference(other: ModifiedJulianDate): Quantity
+  /** Signed difference `self − other` as a quantity-like object in Days. */
+  difference(other: ModifiedJulianDate): QuantityLike
   /** Human-readable representation (e.g. `"MJD 51544.5 d"`). */
   format(): string
 }
@@ -246,8 +250,8 @@ export declare class Period {
   get start(): ModifiedJulianDate
   /** End as a `ModifiedJulianDate` object. */
   get end(): ModifiedJulianDate
-  /** Duration of the period as a `Quantity` in Days. */
-  duration(): Quantity
+  /** Duration of the period as a quantity-like object in Days. */
+  duration(): QuantityLike
   /** Duration of the period in days (raw number). */
   durationDays(): number
   /**
