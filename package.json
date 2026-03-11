@@ -1,0 +1,20 @@
+{
+  "name": "tempoch-js",
+  "version": "0.1.0",
+  "description": " high-precision, type-safe time computations. Provides strongly-typed time units, durations, and arithmetic with compile-time guarantees, enabling robust temporal calculations for scientific and systems software. ",
+  "homepage": "https://github.com/Siderust/tempoch-js#readme",
+  "bugs": {
+    "url": "https://github.com/Siderust/tempoch-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Siderust/tempoch-js.git"
+  },
+  "license": "AGPL-3.0-or-later",
+  "author": "VPRamon",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
