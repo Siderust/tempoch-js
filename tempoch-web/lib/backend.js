@@ -16,7 +16,11 @@ let wasm = null;
  */
 export async function init(module_or_path) {
   const mod = await import('../pkg/tempoch_web.js');
-  await mod.default(module_or_path);
+  if (module_or_path === undefined) {
+    await mod.default();
+  } else {
+    await mod.default({ module_or_path });
+  }
   wasm = mod;
 }
 
