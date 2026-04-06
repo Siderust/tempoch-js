@@ -36,7 +36,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: |
-            tempoch-node -> tempoch-node/target
+            tempoch-node -> target
       - run: ./scripts/ci.sh install
       - run: ./scripts/ci.sh format
 
@@ -57,7 +57,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: |
-            tempoch-node -> tempoch-node/target
+            tempoch-node -> target
       - run: ./scripts/ci.sh install
       - run: ./scripts/ci.sh lint
 
@@ -78,7 +78,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: |
-            tempoch-node -> tempoch-node/target
+            tempoch-node -> target
       - run: ./scripts/ci.sh install
       - run: BUILD_MODE=release ./scripts/ci.sh build
 
@@ -99,7 +99,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: |
-            tempoch-node -> tempoch-node/target
+            tempoch-node -> target
       - run: ./scripts/ci.sh install
       - run: ./scripts/ci.sh build
       - run: ./scripts/ci.sh test
@@ -122,7 +122,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: |
-            tempoch-node -> tempoch-node/target
+            tempoch-node -> target
       - run: ./scripts/ci.sh install
       - run: ./scripts/ci.sh build
       - run: ./scripts/ci.sh coverage

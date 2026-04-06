@@ -12,17 +12,14 @@ readme = "README.md"
 crate-type = ["cdylib"]
 
 [dependencies]
-tempoch = { path = "../../../../rust/tempoch/tempoch" }
-qtty = { path = "../../../../rust/qtty/qtty" }
+tempoch = { path = "../tempoch/tempoch" }
+qtty = "0.5.0"
 chrono = "0.4"
 napi = { version = "2", features = ["napi6"] }
 napi-derive = "2"
 
 [build-dependencies]
 napi-build = "2"
-
-[patch.crates-io]
-qtty = { path = "../../../../rust/qtty/qtty" }
 
 [profile.release]
 lto = true
